@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.example.algamoney.api.model.Pessoa;
 import com.example.algamoney.api.repository.PessoaRepository;
 
+/*
+ * UMA REGRA DE NEGÓCIO PARA ATUALIZAR REGISTROS DE PESSOAS
+ */
+
 @Service
 public class PessoaService {
 
@@ -22,13 +26,27 @@ public class PessoaService {
 	
 	public Pessoa atualizar(@PathVariable Long codigo, @RequestBody Pessoa pessoa) {
 
-		  Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
-		      .orElseThrow(() -> new EmptyResultDataAccessException(1));
-
-		  BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
+		  Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo, pessoa);
 
 		  return this.pessoaRepository.save(pessoaSalva);
 		}
+
+	private Pessoa buscarPessoaPeloCodigo(Long codigo, Pessoa pessoa) {
+		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
+		      .orElseThrow(() -> new EmptyResultDataAccessException(1));
+
+		  BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
+		return pessoaSalva;
+	}
+
+	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+		
+		/* AJUSTAR END-POINT
+		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
+		pessoaSalva.setAtivo(ativo);
+		pessoaRepository.save(pessoaSalva);
+		*/
+	}
 
 
 }

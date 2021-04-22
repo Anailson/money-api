@@ -99,5 +99,18 @@ public class PessoaResource {
 		return ResponseEntity.ok(pessoaSalva);
 	}
 
+	
+	/*Implementando atualização parcial com PUT*/
+	@PutMapping("/{codigo}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+		
+	//	pessoaService.atualizar(codigo, ativo);
+		pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+		
+		
+		
+	}
+	
 }
 
