@@ -100,7 +100,7 @@ public class PessoaResource {
 	}
 
 	
-	/*Implementando atualização parcial com PUT*/
+	/*Implementando atualização parcial com PUT  AJUSTAR EM OUTRO MOMENTO*/
 	@PutMapping("/{codigo}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {

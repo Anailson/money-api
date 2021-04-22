@@ -41,7 +41,7 @@ public class PessoaService {
 
 	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
 		
-		/* AJUSTAR END-POINT
+		/* AJUSTAR END-POINT AJUSTA EM OUTRO MOMENTO
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
 		pessoaSalva.setAtivo(ativo);
 		pessoaRepository.save(pessoaSalva);
