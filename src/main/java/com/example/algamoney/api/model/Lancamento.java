@@ -3,7 +3,6 @@ package com.example.algamoney.api.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,10 +21,14 @@ public class Lancamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+
 	private String descricao;
 
 	@Column(name = "data_vencimento")
 	private LocalDate dataVencimento;
+
+	@Column(name = "data_pagamento")
+	private LocalDate dataPagamento;
 
 	private BigDecimal valor;
 
@@ -34,11 +37,11 @@ public class Lancamento {
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipo;
 
-	@ManyToOne // UMA CATEGORIA TEM MUITOS LANÇAMENTOS
-	@JoinColumn(name = "codigo_categoria") // COLUNA QUE IDENTIFICA NA TABELA
+	@ManyToOne
+	@JoinColumn(name = "codigo_categoria")
 	private Categoria categoria;
 
-	@ManyToOne // UMA CATEGORIA TEM MUITOS LANÇAMENTOS
+	@ManyToOne
 	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;
 
@@ -64,6 +67,14 @@ public class Lancamento {
 
 	public void setDataVencimento(LocalDate dataVencimento) {
 		this.dataVencimento = dataVencimento;
+	}
+
+	public LocalDate getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(LocalDate dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
 	public BigDecimal getValor() {
@@ -130,8 +141,5 @@ public class Lancamento {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }
