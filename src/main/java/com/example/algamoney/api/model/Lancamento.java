@@ -30,11 +30,11 @@ public class Lancamento {
 	@Column(name = "data_vencimento")
 	private LocalDate dataVencimento;
 
-	@NotNull
+	//@NotNull
 	@Column(name = "data_pagamento")
 	private LocalDate dataPagamento;
 
-	@NotNull
+	//@NotNull
 	private BigDecimal valor;
 
 	private String observacao;

@@ -31,7 +31,7 @@ public class PessoaService {
 		  return this.pessoaRepository.save(pessoaSalva);
 		}
 
-	private Pessoa buscarPessoaPeloCodigo(Long codigo, Pessoa pessoa) {
+	public Pessoa buscarPessoaPeloCodigo(Long codigo, Pessoa pessoa) {
 		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
 		      .orElseThrow(() -> new EmptyResultDataAccessException(1));
 
@@ -44,8 +44,8 @@ public class PessoaService {
 		/* AJUSTAR END-POINT AJUSTA EM OUTRO MOMENTO
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
 		pessoaSalva.setAtivo(ativo);
-		pessoaRepository.save(pessoaSalva);
-		*/
+		pessoaRepository.save(pessoaSalva);*/
+		
 	}
 
 
