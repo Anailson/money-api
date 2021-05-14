@@ -55,17 +55,26 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		// where descricao like '%vfsfd%'
 
 		if (!StringUtils.isEmpty(lancamentoFilter.getDescricao())) { // caso não seja vazio Lancamento_.descricao
+			
+			/*predicates.add(builder.like(builder.lower(root.get("descricao")), "%"
+					+ lancamentoFilter.getDescricao().toLowerCase() + "%"));*/
 			predicates.add(builder.like(builder.lower(root.get(Lancamento_.descricao)),
 					"%" + lancamentoFilter.getDescricao().toLowerCase() + ""));
 
 		}
 		if (lancamentoFilter.getDataVencimentoDe() != null) {
 
+			/*predicates.add(builder.like(builder.lower(root.get("descricao")), "%"
+					+ lancamentoFilter.getDataVencimentoDe() + "%"));*/
 			predicates.add(builder.greaterThanOrEqualTo(root.get(Lancamento_.dataVencimento),
 					lancamentoFilter.getDataVencimentoDe()));
+			
 		}
 
 		if (lancamentoFilter.getDataVencimentoAte() != null) {
+			
+			/*predicates.add(builder.like(builder.lower(root.get("descricao")), "%"
+					+ lancamentoFilter.getDataVencimentoAte() + "%"));*/
 
 			predicates.add(builder.lessThanOrEqualTo(root.get(Lancamento_.dataVencimento),
 					lancamentoFilter.getDataVencimentoAte()));
