@@ -1,9 +1,8 @@
 package com.example.algamoney.api.repository.lancamento;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,16 +12,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 
 import com.example.algamoney.api.model.Lancamento;
-
-import com.example.algamoney.api.repository.filter.LancamentoFilter;
+import com.example.algamoney.api.model.Lancamento_;
 //\annotations\com\example\algamon
+import com.example.algamoney.api.repository.filter.LancamentoFilter;
 
 public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
@@ -56,16 +51,14 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
 		if (!StringUtils.isEmpty(lancamentoFilter.getDescricao())) { // caso não seja vazio Lancamento_.descricao
 			
-			/*predicates.add(builder.like(builder.lower(root.get("descricao")), "%"
-					+ lancamentoFilter.getDescricao().toLowerCase() + "%"));*/
+			
 			predicates.add(builder.like(builder.lower(root.get(Lancamento_.descricao)),
 					"%" + lancamentoFilter.getDescricao().toLowerCase() + ""));
 
 		}
 		if (lancamentoFilter.getDataVencimentoDe() != null) {
 
-			/*predicates.add(builder.like(builder.lower(root.get("descricao")), "%"
-					+ lancamentoFilter.getDataVencimentoDe() + "%"));*/
+			
 			predicates.add(builder.greaterThanOrEqualTo(root.get(Lancamento_.dataVencimento),
 					lancamentoFilter.getDataVencimentoDe()));
 			
