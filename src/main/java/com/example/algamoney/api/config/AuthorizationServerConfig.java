@@ -7,8 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAdapter{
@@ -31,12 +34,21 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				.tokenStore(tokenStore())
+				.accessTokenConverter(acessTokenConverter())
 				.authenticationManager(authenticationManager);
 	}
 
 	@Bean
+	public JwtAccessTokenConverter acessTokenConverter() {
+		JwtAccessTokenConverter acceAccessTokenConverter = new JwtAccessTokenConverter();
+		acceAccessTokenConverter.setSigningKey("anailson");
+		
+		return acceAccessTokenConverter;
+	}
+
+	@Bean
 	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
+		return new JwtTokenStore(acessTokenConverter());
 	}
 
 
