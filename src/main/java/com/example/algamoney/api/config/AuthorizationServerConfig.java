@@ -28,9 +28,9 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 				.withClient("angular")//nome do cliente
 				.secret("@ngul@r0")
 				.scopes("read", "write")//scope limpar o acesso do cliente angular
-				.authorizedGrantTypes("password")
-				.accessTokenValiditySeconds(1800);//30minutos pra acessar
-				
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(20)//30minutos pra acessar
+				.refreshTokenValiditySeconds(3600 * 24); // 1 dia pra expirar o token 
 	}
 
 	@Override
@@ -38,9 +38,9 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 		endpoints
 				.tokenStore(tokenStore())
 				.accessTokenConverter(acessTokenConverter())
-				.authenticationManager(authenticationManager);
-				//.reuseRefreshTokens(false)//ser usa a aplicação todo o dia o token não expirar
 				//.authenticationManager(authenticationManager);
+				.reuseRefreshTokens(false)//ser usa a aplicação todo o dia o token não expirar
+				.authenticationManager(authenticationManager);
 	}
 
 	@Bean
