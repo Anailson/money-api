@@ -1,11 +1,12 @@
 package com.example.algamoney.api.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -13,7 +14,8 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-@Configuration
+@Configurable
+@EnableResourceServer
 public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAdapter{
 
 	@Autowired
@@ -23,11 +25,12 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
 		clients.inMemory()
-				.withClient("angular")
+				.withClient("angular")//nome do cliente
 				.secret("@ngul@r0")
-				.scopes("read", "write")
+				.scopes("read", "write")//scope limpar o acesso do cliente angular
 				.authorizedGrantTypes("password")
-				.accessTokenValiditySeconds(1800);
+				.accessTokenValiditySeconds(1800);//30minutos pra acessar
+				
 	}
 
 	@Override
@@ -36,20 +39,23 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 				.tokenStore(tokenStore())
 				.accessTokenConverter(acessTokenConverter())
 				.authenticationManager(authenticationManager);
+				//.reuseRefreshTokens(false)//ser usa a aplicação todo o dia o token não expirar
+				//.authenticationManager(authenticationManager);
 	}
 
 	@Bean
 	public JwtAccessTokenConverter acessTokenConverter() {
 		JwtAccessTokenConverter acceAccessTokenConverter = new JwtAccessTokenConverter();
-		acceAccessTokenConverter.setSigningKey("anailson");
+		acceAccessTokenConverter.setSigningKey("anailson");//chave que valida o token
 		
 		return acceAccessTokenConverter;
 	}
 
 	@Bean
 	public TokenStore tokenStore() {
+		
 		return new JwtTokenStore(acessTokenConverter());
+		//return new InMemoryTokenStore(AccessTokenConverter());
 	}
-
 
 }
