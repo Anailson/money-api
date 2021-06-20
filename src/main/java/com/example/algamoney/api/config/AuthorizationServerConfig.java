@@ -30,7 +30,15 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 				.scopes("read", "write")//scope limpar o acesso do cliente angular
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(20)//30minutos pra acessar
-				.refreshTokenValiditySeconds(1800 * 24); // 1 dia pra expirar o token 
+				.refreshTokenValiditySeconds(3600 * 24) // 1 dia pra expirar o token 
+				
+				.and()
+				.withClient("mobile")
+				.secret("m0b1l30")
+				.scopes("read")
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(1800)
+				.refreshTokenValiditySeconds(3600 * 24);
 				
 	}	
 
