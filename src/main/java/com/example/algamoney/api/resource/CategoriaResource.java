@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class CategoriaResource {
 	/*LISTAR*/
 	//@CrossOrigin(maxAge = 10, origins = {"http://localhost:8080"}) //defini o que pode ser liberado na cross
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public  List<Categoria> listar(){
 		
 		//return categoriaRepository.findAll();
@@ -44,6 +46,7 @@ public class CategoriaResource {
 	/*----------------------SALVAR NOVOS REGISTROS----------------------------*/
 	@PostMapping
 	//@ResponseStatus(HttpStatus.CREATED) //STATUS 201 CREATED
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Categoria> criar(@Valid  @RequestBody Categoria categoria , HttpServletResponse response) {
 		
 		Categoria categoriaSalvar = categoriaRepository.save(categoria);
@@ -65,6 +68,7 @@ public class CategoriaResource {
 	}
 	*/
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Optional<Categoria>> buscarPeloCodigo(@PathVariable Long codigo) {
 		 Optional<Categoria> categoria = categoriaRepository.findById(codigo);
 		 return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
