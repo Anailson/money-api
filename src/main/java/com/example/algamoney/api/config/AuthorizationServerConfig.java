@@ -31,7 +31,8 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(20)//30minutos pra acessar
 				.refreshTokenValiditySeconds(1800 * 24); // 1 dia pra expirar o token 
-	}
+				
+	}	
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
